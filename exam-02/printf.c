@@ -34,7 +34,7 @@ int ft_putchar(char c)
 	return (sayi);
 }
 
-int ft_putnbr(int number, char *set, int numset)
+int ft_putnbr(long number, char *set, int numset)
 {
 	int len;
 
