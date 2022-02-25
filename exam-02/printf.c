@@ -17,7 +17,7 @@ int ft_putstr(char *str)
 {
 	int i = 0;
 	int len = 0;
-	while (str[i] && str)
+	while(str[i])
 	{
 		len += write(1, &str[i], 1);
 		i++;
@@ -25,71 +25,53 @@ int ft_putstr(char *str)
 	return (len);
 }
 
-int ft_putchar(char c)
+int ft_setprint(unsigned long number, char *set, int numset)
 {
-	int sayi;
-
-	sayi = 0;
-	sayi += write(1, &c, 1);
-	return (sayi);
-}
-
-int ft_putnbr(long number, char *set, int numset)
-{
-	int len;
-
-	len = 0;
-	if (number == -2147483648)
-		len += ft_putstr("-2147483648");
-	if (number < 0)
+	int i = 0;
+	int len = 0;
+	if(number < 0)
 	{
+		len += write(1, "-", 1);
 		number = number * -1;
-		ft_putchar('-');
-		len++;
 	}
 	if(number > numset - 1)
-		len += ft_putnbr(number/numset , set, numset);
-	len += ft_putchar(set[number%numset]);
-	
-	return(len);
+		len += ft_setprint(number/numset,set,numset);
+	len += write(1, &set[number%numset], 1);
+	return (len);
 }
 
-int	arg_printer(va_list macro, char c)
+int arg_printer(va_list macro, char c)
 {
 	if(c == 's')
 		return(ft_putstr(va_arg(macro, char *)));
 	if(c == 'd')
-		return(ft_putnbr(va_arg(macro, int), "0123456789", 10));
+		return(ft_setprint(va_arg(macro, int), "0123456789", 10));
 	if(c == 'x')
-		return(ft_putnbr(va_arg(macro, unsigned int), "0123456789abcdef", 16));
+		return(ft_setprint(va_arg(macro, unsigned int), "0123456789abcdef", 16));
 	return (0);
 }
-
 int ft_printf(const char *str, ...)
 {
 	va_list macro;
-	int i;
-	int len;
+	int i = 0;
+	int len = 0;
 
 	va_start(macro, str);
-	len = 0;
-	i = 0;
 	while(str[i])
 	{
 		if(str[i] == '%')
 		{
-			len += arg_printer(macro, str[i+1]);
+			len += arg_printer(macro, str[i + 1]);
 			i++;
 		}
 		else
 			len += write(1, &str[i], 1);
 		i++;
 	}
-	va_end(macro);
 	return (len);
 }
 
-int main(void)
+int main()
 {
-	ft_printf("%x\n", 42);
+	ft_printf("%x", -42);
 }
