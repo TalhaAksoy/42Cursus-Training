@@ -3,33 +3,45 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-char *get_next_line(int fd)
+void *myfree(void *f)
 {
-	
-	int j = 0;
-	char *buffer = malloc(9999);
-	char *dest = malloc(9999);
-	int i = read(fd , buffer, 1);
-
-	
-	while (i > 0)
-	{
-		dest[j++] = buffer[0];
-		if (buffer[0] == '\n')
-		{
-			break;
-		}
-		i = read(fd, buffer, 1);
-	}
-free(buffer);
-return(dest);	
+    free(f);
+    return (NULL);
 }
 
-int main()
+char *get_next_line(int fd)
 {
-	int fd = 31;
-	char *line;
-	fd = open("inter.c", O_RDONLY);
-	line = get_next_line(fd);
-	printf("%s\n", line);
+    char *ret = (char *)malloc(sizeof(char) * 9999);
+    char buff = 0;
+    int i = 1;
+    int j = 0;
+    
+    while(i > 0)
+    {
+        i = read(fd, &buff, 1);
+        if (i <= 0)
+            break ;
+        ret[j++] = buff;
+        if(buff == '\n')
+            break ;
+    }
+    ret[j] = 0;
+    if(!*ret)
+        return (myfree(ret));
+    system("leaks a.out");
+    return (ret);
+}
+
+int main(void){
+    int fd;
+    char *line;
+    fd = open("./inter.c",O_RDONLY);
+    line = get_next_line(fd);
+    printf("%s\n", line);
+    line = get_next_line(fd);
+    printf("%s\n", line);
+    line = get_next_line(fd);
+    printf("%s\n", line);
+    line = get_next_line(fd);
+    printf("%s\n", line);
 }
