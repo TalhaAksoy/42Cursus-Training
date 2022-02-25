@@ -17,6 +17,11 @@ int ft_putstr(char *str)
 {
     int i = 0;
     int len = 0;
+    
+    if(str == NULL)
+    {
+        return (ft_putstr("(null)"));
+    }
     while(str[i])
     {
         len += write(1, &str[i], 1);
@@ -43,6 +48,7 @@ int ft_putnbr(long int number)
 
 int ft_puthex(long int number)
 {
+    int len;
     if(number > 15)
         len += ft_puthex(number/16);
     len += write(1, &"0123456789abcdef"[number%16], 1);
@@ -54,9 +60,9 @@ int arg_printer(va_list macro, char c)
     if(c == 's')
         return (ft_putstr(va_arg(macro, char *)));
     if(c == 'd')
-        return (ft_putnbr(va_arg(macro, int));
+        return (ft_putnbr(va_arg(macro, int)));
     if(c == 'x')
-        return (ft_puthex(va_arg(macro, unsigned int));
+        return (ft_puthex(va_arg(macro, unsigned int)));
     return (0);
 }
 
