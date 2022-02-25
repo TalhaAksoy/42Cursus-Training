@@ -1,5 +1,4 @@
 # include <stdlib.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
 
@@ -28,7 +27,6 @@ char *get_next_line(int fd)
     ret[j] = 0;
     if(!*ret)
         return (myfree(ret));
-    system("leaks a.out");
     return (ret);
 }
 
