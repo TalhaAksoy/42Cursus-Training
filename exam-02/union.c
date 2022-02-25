@@ -56,7 +56,6 @@ int	main(int argc, char **argv)
 				write(1, &s2[i], 1);
 			i++;
 		}
-		write(1, "\n", 1);
 	}
 	write(1, "\n", 1);
 }
