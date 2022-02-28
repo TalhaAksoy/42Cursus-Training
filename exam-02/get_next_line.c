@@ -13,7 +13,7 @@ char *get_next_line(int fd)
     int i = 1;
     int j = 0;
 
-    if(fd <= 0 || BUFFER_SIZE <= 0)
+    if(BUFFER_SIZE <= 0)
         return (0);
     while(i > 0)
     {
