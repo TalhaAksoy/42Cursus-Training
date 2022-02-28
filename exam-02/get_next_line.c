@@ -1,6 +1,4 @@
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
+# include "get_next_line.h"
 
 void *myfree(void *f)
 {
@@ -14,7 +12,9 @@ char *get_next_line(int fd)
     char buff = 0;
     int i = 1;
     int j = 0;
-    
+
+    if(fd <= 0 || BUFFER_SIZE <= 0)
+        return (0);
     while(i > 0)
     {
         i = read(fd, &buff, 1);
