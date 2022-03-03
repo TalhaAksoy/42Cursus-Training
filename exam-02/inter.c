@@ -1,23 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   inter.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: saksoy <saksoy@student.42istanbul.com.t    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 12:37:43 by saksoy            #+#    #+#             */
-/*   Updated: 2022/02/24 13:45:47 by saksoy           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <unistd.h>
 
 int is_in(char c, char *str, int len)
 {
 	int i = 0;
-	while (i < len)
+	while(i < len)
 	{
-		if (c == str[i])
+		if(c == str[i])
 			return (1);
 		i++;
 	}
@@ -26,9 +14,7 @@ int is_in(char c, char *str, int len)
 
 int	ft_strlen(char *str)
 {
-	int	i;
-
-	i = 0;
+	int i = 0;
 	while(str[i] && str)
 	{
 		i++;
@@ -43,12 +29,12 @@ int main(int argc, char **argv)
 		char *s1 = argv[1];
 		char *s2 = argv[2];
 		int i = 0;
-		while(s1[i])
+		while (s1[i])
 		{
-			if(!is_in(s1[i],s1,i) && is_in(s1[i], s2, ft_strlen(s2)))
+			if(!is_in(s1[i], s1, i) && is_in(s2[i], s1, ft_strlen(s2)))
 				write(1, &s1[i], 1);
 			i++;
 		}
 	}
-	write(1, "\n", 1);
+	return(0);
 }
